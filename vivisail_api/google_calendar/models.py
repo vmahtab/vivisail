@@ -8,5 +8,5 @@ class DateRangeRequestModel(models.Model):
 class GoogleCalendarEventModel(models.Model):
     id            = models.TextField(primary_key=True)
     title         = models.TextField()
-    startDateTime = models.DateTimeField()
-    endDateTime   = models.DateTimeField()
+    startDateTime = models.JSONField()
+    endDateTime   = models.JSONField()

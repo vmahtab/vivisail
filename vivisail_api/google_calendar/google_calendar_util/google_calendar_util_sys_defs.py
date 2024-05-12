@@ -4,16 +4,14 @@ import os
 # TODO: this should be in the request
 CURRENT_USER = "vivi-mahtab"
 
-# TODO: maybe change this
-GOOGLE_API_EVENT_KEY_JSON_FORMATTER = {
 #   "google api event key": "desired json key"
+GOOGLE_API_EVENT_KEY_JSON_FORMATTER = {
     "id": "id",
     "summary": "title",
-    "start": "startDateTime",
-    "end": "endDateTime",
+#   "start": "startDateTime",
+#   "end": "endDateTime",
     
-    # (NOTE: startDate and endDate not included, need additional parsing)
-}
+} # (NOTE: startDate and endDate not included, needs additional parsing)
 
 DATETIME_REGEX_PATTERN = "(\\d+)-(\\d+)-(\\d+)T(\\d+):(\\d+):.*"
 

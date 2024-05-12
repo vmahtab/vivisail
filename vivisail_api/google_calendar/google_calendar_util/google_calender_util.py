@@ -68,29 +68,37 @@ def get_google_calendar_user_credentials(username: str): # TODO: make this secur
 #
 def parse_google_event(google_api_event) -> dict[str: typing.Any]:
 
-    # parsed_event = dict()
+    parsed_event = {json_key: google_api_event[event_key] for event_key, json_key in GOOGLE_API_EVENT_KEY_JSON_FORMATTER.items()}
     
-    # # START DATETIME
-    # startComponents = re.search(pattern=DATETIME_REGEX_PATTERN, string=google_api_event["start"]["dateTime"]).groups()
-    # parsed_event["startDateTime"] = {
-    #     "year"  : startComponents[0],
-    #     "month" : startComponents[1],
-    #     "day"   : startComponents[2],
-    #     "hour"  : startComponents[3],
-    #     "minute": startComponents[4],
-    # }
+    # START DATETIME
+    startComponents = re.search(pattern=DATETIME_REGEX_PATTERN, string=google_api_event["start"]["dateTime"]).groups()
+    parsed_event["startDateTime"] = {
+        "Date": {
+            "year"  : int(startComponents[0]),
+            "month" : int(startComponents[1]),
+            "day"   : int(startComponents[2]),
+        },
+        "Time": {
+            "hour"  : int(startComponents[3]),
+            "minute": int(startComponents[4]),
+        }
+    }
     
-    # # END DATETIME 
-    # endComponents = re.search(pattern=DATETIME_REGEX_PATTERN, string=google_api_event["end"]["dateTime"]).groups()
-    # parsed_event["endDateTime"] = {
-    #     "year"  : endComponents[0],
-    #     "month" : endComponents[1],
-    #     "day"   : endComponents[2],
-    #     "hour"  : endComponents[3],
-    #     "minute": endComponents[4],
-    # }
+    # END DATETIME 
+    endComponents = re.search(pattern=DATETIME_REGEX_PATTERN, string=google_api_event["end"]["dateTime"]).groups()
+    parsed_event["endDateTime"] = {
+        "Date": {
+            "year"  : int(endComponents[0]),
+            "month" : int(endComponents[1]),
+            "day"   : int(endComponents[2]),
+        },
+        "Time": {
+            "hour"  : int(endComponents[3]),
+            "minute": int(endComponents[4]),
+        }
+    }
     
-    return { json_key: google_api_event[event_key] for event_key, json_key in GOOGLE_API_EVENT_KEY_JSON_FORMATTER.items() }
+    return parsed_event
 
 
 #   :param google_api_events: event_results["items"] where event_results is a return from a call
